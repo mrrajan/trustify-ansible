@@ -40,6 +40,7 @@ spec:
             - importer
             - --working-dir
             - /data/workdir
+            - --concurrency=4
           env:
             - name: NAMESPACE
               value: "{{ tpa_single_node_namespace }}"
