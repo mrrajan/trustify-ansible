@@ -41,4 +41,3 @@
   ansible.builtin.include_tasks: importer/importer.yml
   when:
     - tpa_single_node_importer == 'single'
-
