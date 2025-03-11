@@ -56,8 +56,9 @@ tpa_single_node_server_secret: "{{ tpa_single_node_kube_manifest_dir }}/Secrets/
 
 # Probes
 tpa_single_node_probe_initial_delay_seconds: 30
+
 # Importers
-tpa_single_node_importer: multiple #single/multiple
+tpa_single_node_importer: multiple # single/multiple
 
 # defaults file for tpa_single_node
 tpa_single_node_system_packages:
