@@ -79,7 +79,10 @@ spec:
               value: "{{ tpa_single_node_pg_max_lifetime }}"
             - name: TRUSTD_DB_IDLE_TIMEOUT
               value: "{{ tpa_single_node_pg_idle_timeout }}"
-
+{% if tpa_single_node_storage_compression != 'None' %}
+            - name: TRUSTD_STORAGE_COMPRESSION
+              value: {{ tpa_single_node_storage_compression }}
+{% endif %}
 {% if tpa_single_node_storage_region == 'None' %}
             - name: TRUSTD_STORAGE_STRATEGY
               value: fs

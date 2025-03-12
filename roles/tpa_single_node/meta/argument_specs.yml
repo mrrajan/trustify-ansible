@@ -207,3 +207,7 @@ argument_specs:
         description: "Upload limit for Files"
         type: "str"
         version_added: "2.0.0"
+      tpa_single_node_storage_compression:
+        description: "Compression logic for storage "
+        type: "str"
+        version_added: "2.0.0"
