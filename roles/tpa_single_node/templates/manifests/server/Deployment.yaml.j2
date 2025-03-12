@@ -24,6 +24,10 @@ spec:
         - name: service
           image: "{{ tpa_single_node_trustification_image }}"
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "{{ tpa_single_node_cpu }}"
+              memory: "{{ tpa_single_node_memory }}"
           livenessProbe:
             exec:
               command:
@@ -46,7 +50,7 @@ spec:
             - name: NAMESPACE
               value: "{{ tpa_single_node_namespace }}"
             - name: RUST_LOG
-              value: info
+              value: "{{ tpa_single_node_log_filter }}"
             - name: INFRASTRUCTURE_ENABLED
               value: 'true'
             - name: INFRASTRUCTURE_BIND
@@ -63,6 +67,14 @@ spec:
 {% else %}
             - name: HTTP_SERVER_TLS_ENABLED
               value: 'false'
+{% endif %}
+{% if tpa_single_node_server_req_limit != 'None' %}
+            - name: HTTP_SERVER_REQUEST_LIMIT
+              value: "{{ tpa_single_node_server_req_limit }}"
+{% endif %}
+{% if tpa_single_node_server_json_limit != 'None' %}
+            - name: HTTP_SERVER_JSON_LIMIT
+              value: "{{ tpa_single_node_server_json_limit }}"
 {% endif %}
             - name: TRUSTD_DB_HOST
               value: "{{ tpa_single_node_pg_host }}"
@@ -117,6 +129,14 @@ spec:
                 secretKeyRef:
                   name: oidc_secret
                   key: front_end
+{% if tpa_single_node_upload_limit != 'None' %}
+            - name: TRUSTD_SBOM_UPLOAD_LIMIT
+              value: "{{ tpa_single_node_upload_limit }}"
+            - name: TRUSTD_ADVISORY_UPLOAD_LIMIT
+              value: "{{ tpa_single_node_upload_limit }}"
+            - name: TRUSTD_DATASET_ENTRY_LIMIT
+              value: "{{ tpa_single_node_upload_limit }}"
+{% endif %}
           ports:
             - containerPort: 9010
               protocol: TCP
